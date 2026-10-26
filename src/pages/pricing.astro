@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import PricingTable from '../components/marketing/PricingTable.tsx';
+import { pricingTiers } from '@/data/pricing-tiers.ts';
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Straightforward starting points for discovery, product development, and ongoing software delivery."
+>
+  <Header slot="header" />
+
+  <PricingTable
+    client:load
+    title="Invest in the right build"
+    subtitle="Start with a clear scope, then bring in the level of product and engineering support you need."
+    tiers={pricingTiers}
+  />
+
+  <Footer slot="footer" />
+</BaseLayout>

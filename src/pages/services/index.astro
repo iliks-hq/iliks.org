@@ -1,0 +1,36 @@
+---
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import BentoGrid from '@/components/marketing/BentoGrid.astro';
+import FooterCta from '@/components/marketing/FooterCta.astro';
+import { services } from '@/data/services';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  title="Services"
+  description="Explore our range of premium services designed to meet your needs."
+>
+  <Header slot="header" />
+
+  <BentoGrid
+    id="services"
+    title="High-Quality Services"
+    subtitle="We provide premium services with a focus on quality."
+    items={services}
+  />
+
+  <FooterCta
+    title={t('footer.cta.title')}
+    ctaText={t('footer.cta.text')}
+    description={t('footer.cta.description')}
+    ctaHref={t('footer.cta.href')}
+    ctaAriaLabel={t('footer.cta.ariaLabel')}
+  />
+
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,612 @@
+---
+import { CalendarPlusIcon, ArrowRightIcon } from 'lucide-react';
+import { AuroraText } from '@/components/ui/aurora-text';
+import { ServicesSlider } from './services-slider';
+import { AnimatedShinyText } from '../ui/animated-shiny-text';
+import { ButtonLink } from '../ui/button-link';
+
+/**
+ * HeroSection.astro — Dynamic Hero Section for Landing Pages
+ *
+ * Features:
+ * - Optimized for LCP (Largest Contentful Paint)
+ * - Gradient text support
+ * - Primary and secondary CTAs
+ * - Optional top badge (e.g., "New Feature")
+ */
+
+interface Props {
+  titleStart: string;
+  titleHighlight: string;
+  titleEnd?: string;
+  description: string;
+  primaryCtaText: string;
+  primaryCtaHref: string;
+  primaryCtaAriaLabel: string;
+  secondaryCtaText: string;
+  secondaryCtaHref: string;
+  secondaryCtaAriaLabel: string;
+}
+
+const {
+  titleStart,
+  titleHighlight,
+  titleEnd = '',
+  description,
+  primaryCtaText,
+  primaryCtaHref,
+  primaryCtaAriaLabel,
+  secondaryCtaText,
+  secondaryCtaHref,
+  secondaryCtaAriaLabel,
+} = Astro.props;
+---
+
+<div class="relative xl:min-h-dvh">
+  <div class="absolute -z-1 inset-0">
+    <div class="absolute -z-2 inset-0 bg-radial-[130%_100%_at_50%_10%] from-30% from-background to-100% to-foreground/20" />
+    <!-- <div class="absolute inset-0 bg-radial-[150%_110%_at_50%_100%] from-0% from-blue-800 via-50% via-white to-90% to-transparent opacity-30" /> -->
+    <!-- <div class="absolute inset-0 bg-radial-[50%_50%_at_50%_100%] from-0% from-primary via-40% via-primary/60 to-transparent opacity-30" /> -->
+    <svg
+      class="h-full w-full inset-0 absolute"
+      viewBox="0 0 1440 1024"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_f_2002_201)">
+        <path
+          d="M1040 419.574C1040 474.582 1025.86 528.663 998.935 576.612C972.012 624.561 933.215 664.762 886.279 693.345C839.343 721.928 785.848 737.931 730.946 739.812C676.043 741.694 621.581 729.391 572.804 704.088C524.026 678.785 482.575 641.334 452.441 595.341C422.307 549.348 404.505 496.361 400.749 441.482C396.993 386.603 407.409 331.68 430.996 282"
+          stroke="url(#paint0_linear_2002_201)"
+          stroke-opacity="0.4"
+          stroke-width="200"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <g opacity="0.6">
+        <line
+          x1="105.5"
+          y1="2.18557e-08"
+          x2="105.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="225.5"
+          y1="2.18557e-08"
+          x2="225.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="543.117"
+          y2="543.117"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="606.273"
+          y2="606.273"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="754.805"
+          y2="754.805"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="790.367"
+          y2="790.367"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="892.523"
+          y2="892.523"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="389.117"
+          y2="389.117"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="105.383"
+          y2="105.383"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1440"
+          y1="260.641"
+          y2="260.641"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="345.5"
+          y1="2.18557e-08"
+          x2="345.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="465.5"
+          y1="2.18557e-08"
+          x2="465.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="585.5"
+          y1="2.18557e-08"
+          x2="585.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="705.5"
+          y1="2.18557e-08"
+          x2="705.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="825.5"
+          y1="2.18557e-08"
+          x2="825.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="945.5"
+          y1="2.18557e-08"
+          x2="945.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1065.5"
+          y1="2.18557e-08"
+          x2="1065.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1185.5"
+          y1="2.18557e-08"
+          x2="1185.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          x1="1305.5"
+          y1="2.18557e-08"
+          x2="1305.5"
+          y2="934"
+          stroke="#28282A"
+          stroke-opacity="0.2"
+          stroke-dasharray="3 3"
+        />
+        <line
+          y1="-0.5"
+          x2="19.8345"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 361 389.023)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="35.95"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 375 389.023)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="58.2637"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 392 388.289)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="78.0982"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 408 388.289)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="95.4533"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 423 388.289)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="115.288"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 438 388.289)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="132.643"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 453 388.289)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="147.519"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 465 391.219)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="147.519"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 464 403.672)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="145.039"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 463 415.398)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="145.039"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 463 427.117)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="145.039"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 463 438.844)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="147.519"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 464 449.102)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="140.081"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 465 460.086)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="117.767"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 462 473.273)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="100.412"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 464 483.531)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="81.8171"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 463 495.25)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="61.9827"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 464 506.242)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="44.6275"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 465 516.5)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="24.7931"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 465 528.219)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="4.95861"
+          y2="-0.5"
+          transform="matrix(-0.806677 0.590993 -0.806677 -0.590993 465 539.945)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="26.3289"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 961 267.859)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="47.7211"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 975 267.859)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="77.341"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 992 266.555)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="103.67"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1008 266.555)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="126.708"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1023 266.555)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="153.036"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1038 266.555)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="176.074"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1053 266.555)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="195.821"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1065 271.781)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="195.821"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1064 294)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="192.53"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1063 314.906)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="192.53"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1063 335.812)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="192.53"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1063 356.727)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="195.821"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1064 375.023)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="185.948"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1065 394.625)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="156.328"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1062 418.148)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="133.29"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1064 436.445)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="108.607"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1063 457.352)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="82.2777"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1064 476.953)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="59.2399"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1065 495.25)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="32.9111"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1065 516.164)"
+          stroke="#C9C9C9"
+        />
+        <line
+          y1="-0.5"
+          x2="6.58222"
+          y2="-0.5"
+          transform="matrix(-0.607698 0.794168 -0.607698 -0.794168 1065 537.07)"
+          stroke="#C9C9C9"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_f_2002_201"
+          x="113.6"
+          y="-4.42343"
+          width="1212.8"
+          height="1030.82"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="93.2" result="effect1_foregroundBlur_2002_201" />
+        </filter>
+        <linearGradient
+          id="paint0_linear_2002_201"
+          x1="467.47"
+          y1="263.288"
+          x2="1072.5"
+          y2="563.902"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#DAB62790" />
+          <stop offset="0.313324" stop-color="#0EADF1" />
+          <stop offset="0.780691" stop-color="#12F3E0" />
+          <stop offset="1" stop-color="#3CE7AB" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="h-16">
+    <slot name="header" />
+  </div>
+  <section class="container max-w-7xl mx-auto flex flex-col h-full py-14 lg:py-24 sm:pb-20 lg:pb-36 items-center justify-between text-center">
+    <div class="flex flex-col items-center justify-start gap-8 md:gap-12 lg:gap-16">
+      <div class="flex flex-col items-center justify-start gap-3 md:gap-8">
+        <h1 class="mx-auto max-w-sm md:max-w-4xl text-4xl md:text-5xl lg:max-w-5xl lg:text-7xl font-mono font-extrabold leading-tight tracking-tight">
+          {titleStart}{' '}
+          <AuroraText
+            colors={[
+              'var(--color-cyan-300)',
+              'var(--color-primary)',
+              '#38bdf8',
+              'var(--color-primary)',
+            ]}
+          >
+            {titleHighlight}
+          </AuroraText>
+          {titleEnd && ` ${titleEnd}`}
+        </h1>
+
+        <p class="mx-auto max-w-xs md:max-w-2xl text-xs md:text-xl lg:text-2xl tracking-loose">
+          <AnimatedShinyText
+            className="text-foreground/70 via-foreground"
+            duration={50}
+            shimmerWidth={100}
+          >
+            {description}
+          </AnimatedShinyText>
+        </p>
+      </div>
+
+      <div class={'flex w-full flex-col items-center justify-center gap-2 md:flex-row md:gap-4'}>
+        <ButtonLink
+          aria-label={primaryCtaAriaLabel}
+          size={'lg'}
+          href={primaryCtaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {primaryCtaText} <CalendarPlusIcon />
+        </ButtonLink>
+        <ButtonLink
+          aria-label={secondaryCtaAriaLabel}
+          size={'lg'}
+          variant={'secondary'}
+          href={secondaryCtaHref}
+        >
+          {secondaryCtaText} <ArrowRightIcon />
+        </ButtonLink>
+      </div>
+    </div>
+
+    <div class="flex container max-w-7xl ml-8 sm:mx-4 items-center justify-center md:m-0 md:px-6 lg:ml-0 w-full mt-12 md:mt-24">
+      <ServicesSlider client:load />
+    </div>
+  </section>
+</div>

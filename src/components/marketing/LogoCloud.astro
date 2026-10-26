@@ -1,0 +1,69 @@
+---
+import { Marquee } from '../ui/marquee';
+
+/**
+ * LogoCloud.astro — Social Proof component
+ *
+ * Displays a row of customer/partner logos.
+ * Great for building trust on B2B SaaS landing pages.
+ */
+
+interface Logo {
+  name: string;
+  src: string;
+  darkSrc?: string;
+  className?: string;
+}
+
+interface Props {
+  title?: string;
+  logos: Logo[];
+}
+
+const { title = 'Trusted by', logos } = Astro.props;
+---
+
+<section class="border-t border py-12 md:py-16">
+  <div class="mx-auto max-w-7xl px-6 text-center">
+    <p class="text-sm font-semibold text-primary tracking-wide uppercase">{title}</p>
+    {logos.length === 0 && (
+      <div class="flex justify-center items-center mx-auto max-w-7xl py-6 md:py-12">
+        <img
+          loading="lazy"
+          decoding="async"
+          class="dark:invert saturate-0 h-8 md:h-16 opacity-70"
+          src={'/logos/uap.png'}
+        />
+        <span class="text-lg md:text-4xl font-serif text-foreground/70">
+          Universal Accessories & Packaging
+        </span>
+      </div>
+    )}
+    {logos.length > 0 && (
+      <Marquee>
+        {logos.map((logo) => (
+          <figure>
+            <img
+              src={logo.src}
+              alt={`${logo.name} logo`}
+              loading="lazy"
+              width="120"
+              height="40"
+              class={`h-8 w-auto max-w-30 object-contain sm:h-10 transition-all drop-shadow-sm hover:drop-shadow-md dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] ${logo.darkSrc ? 'dark:hidden' : ''} ${logo.className || ''}`}
+            />
+            {logo.darkSrc && (
+              <img
+                src={logo.darkSrc}
+                alt={`${logo.name} logo (dark)`}
+                loading="lazy"
+                width="120"
+                height="40"
+                class={`hidden h-8 w-auto max-w-30 object-contain sm:h-10 transition-all drop-shadow-sm hover:drop-shadow-md dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] dark:block ${logo.className || ''}`}
+              />
+            )}
+          </figure>
+        ))}
+      </Marquee>
+    )}
+  </div>
+</section>

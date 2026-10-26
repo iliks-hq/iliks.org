@@ -1,0 +1,53 @@
+---
+import JsonLd from '../seo/JsonLd.astro';
+import { CircleHelpIcon } from 'lucide-react';
+import { Item, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from '../ui/item';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  faqs: FaqItem[];
+}
+
+const {
+  title = 'Frequently Asked Questions',
+  description = 'Everything you need to know.',
+  faqs,
+} = Astro.props;
+
+// Generate FAQPage schema data
+const faqSchemaData = {
+  items: faqs,
+};
+---
+
+<section class="mx-auto max-w-7xl px-6 py-20 md:py-32" id="faq">
+  <JsonLd type="FAQPage" data={faqSchemaData} />
+
+  <div class="text-center mb-12">
+    <h2 class="font-display text-primary text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
+    {description && <p class="mt-4 text-lg text-muted-foreground">{description}</p>}
+  </div>
+
+  <ItemGroup className="grid gap-4 md:grid-cols-2">
+    {faqs.map((faq) => (
+      <Item
+        variant="outline"
+        className="rounded-2xl items-start border-border bg-background px-6 py-5"
+      >
+        <ItemContent className="gap-3">
+          <ItemTitle>
+            <CircleHelpIcon aria-hidden="true" className="size-5 text-primary" />
+            {faq.question}
+          </ItemTitle>
+          <ItemDescription className="line-clamp-none">{faq.answer}</ItemDescription>
+        </ItemContent>
+      </Item>
+    ))}
+  </ItemGroup>
+</section>

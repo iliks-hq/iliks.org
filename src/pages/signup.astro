@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+// You can use translations here if you want to localize the signup page
+---
+
+<BaseLayout
+  title="Get Started | ILIKS"
+  description="Start your free trial today. No credit card required."
+>
+  <Header slot="header" />
+
+  <main class="mx-auto flex w-full max-w-7xl flex-col justify-center px-6 py-20 lg:px-8 xl:py-32">
+    <div class="mx-auto w-full max-w-md">
+      <div class="text-center">
+        <h1 class="font-display text-4xl font-extrabold tracking-tight text-primary">
+          Create your account
+        </h1>
+        <p class="mt-4 text-lg">Start your 14-day free trial. No credit card required.</p>
+      </div>
+
+      <div class="mt-10 rounded-3xl border border-foreground/20 bg-background p-8 shadow-sm sm:p-10">
+        <form action="#" method="POST" class="space-y-6">
+          <div>
+            <label for="email" class="block text-sm font-medium leading-6 text-primary">
+              Email address
+            </label>
+            <div class="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="block w-full rounded-xl border border-foreground/20 px-4 py-3 text-primary shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                placeholder="you@company.com"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium leading-6 text-primary">
+              Password
+            </label>
+            <div class="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                required
+                class="block w-full rounded-xl border border-foreground/20 px-4 py-3 text-primary shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                placeholder="••••••••"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="flex w-full justify-center rounded-xl bg-primary text-primary-foreground px-4 py-3 text-sm font-semibold shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground hover:shadow-md active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              Start free trial
+            </button>
+          </div>
+        </form>
+
+        <p class="mt-10 text-center text-sm">
+          Already have an account?{' '}
+          <a
+            href="/login"
+            aria-label="Sign in to your account"
+            class="font-semibold text-primary hover:text-primary dark:text-primary dark:hover:text-primary"
+          >
+            Sign in here
+          </a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

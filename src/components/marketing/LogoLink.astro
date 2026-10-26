@@ -1,0 +1,25 @@
+---
+import { getLocalizedPath } from '@/i18n/utils';
+import type { Lang } from '@/i18n/ui';
+import type { HTMLAttributes } from 'astro/types';
+import Logo from '@/assets/logo.svg?raw';
+import { Image } from 'astro:assets';
+
+interface Props extends HTMLAttributes<'a'> {
+  lang: Lang;
+}
+
+const { lang, class: className, ...props } = Astro.props;
+---
+
+<a
+  {...props}
+  href={getLocalizedPath(lang, '/')}
+  class:list={[
+    'font-display flex items-center gap-px text-xl md:text-2xl font-semibold',
+    className,
+  ]}
+>
+  <div class="w-6 md:w-8" set:html={Logo} />
+  ILIKS
+</a>

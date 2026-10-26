@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import ContactForm from '../components/marketing/ContactForm.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+
+const siteUrl = Astro.site?.toString();
+---
+
+<BaseLayout
+  title="Contact Sales"
+  description="Get in touch with our team to see how ILIKS can accelerate your business."
+>
+  <Fragment slot="head">
+    <JsonLd
+      type="Organization"
+      data={{
+        name: 'ILIKS',
+        url: siteUrl,
+        logo: `${siteUrl}/favicon.svg`,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: '+880 1410-980502',
+          contactType: 'customer service',
+          email: 'hello@ILIKS.co',
+          areaServed: 'BD',
+          availableLanguage: ['English'],
+        },
+      }}
+    />
+  </Fragment>
+
+  <Header slot="header" />
+
+  <main class="mx-auto max-w-7xl px-6 py-20 md:py-32">
+    <div class="grid gap-16 lg:grid-cols-2 lg:gap-24">
+      <!-- Contact Info (Left) -->
+      <div>
+        <h1 class="font-display text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
+          Let's talk about your project
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed">
+          Whether you need a custom implementation, have questions about our open-source offering,
+          or just want to say hi, our team is ready to help.
+        </p>
+
+        <dl class="mt-12 space-y-8">
+          <div>
+            <dt class="text-sm font-semibold uppercase tracking-wider text-primary">Email</dt>
+            <dd class="mt-2 text-lg">
+              <a
+                href="mailto:hello@astroseotheme.com"
+                class="hover:text-primary dark:hover:text-primary/80 transition-colors"
+              >
+                hello@iliks.co
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-semibold uppercase tracking-wider text-primary">Phone</dt>
+            <dd class="mt-2 text-lg">
+              <a
+                href="tel:+8801410980502"
+                class="hover:text-primary dark:hover:text-primary/80 transition-colors"
+              >
+                +880 1410-980502
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-semibold uppercase tracking-wider text-primary">
+              Headquarters
+            </dt>
+            <dd class="mt-2 text-lg leading-relaxed">
+              Uttara, Sector 10
+              <br />
+              Bangladesh
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Contact Form (Right) -->
+      <div class="rounded-3xl border border-primary/40 p-8 shadow-sm sm:p-10">
+        <h2 class="mb-8 font-display text-2xl font-bold text-primary">Send us a message</h2>
+        <ContactForm />
+      </div>
+    </div>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

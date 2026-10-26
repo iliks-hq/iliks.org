@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import HeroSection from '../components/marketing/HeroSection.astro';
+import LogoCloud from '../components/marketing/LogoCloud.astro';
+import BentoGrid from '../components/marketing/BentoGrid.astro';
+import FaqAccordion from '../components/marketing/FaqAccordion.astro';
+import PricingTable from '../components/marketing/PricingTable.tsx';
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '../i18n/utils';
+import type AstroComponent from './blog/[...slug].astro';
+import { services } from '@/data/services.ts';
+import { pricingTiers } from '@/data/pricing-tiers.ts';
+import { faqs } from '@/data/faqs.ts';
+import FooterCta from '@/components/marketing/FooterCta.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://iliks.org';
+---
+
+<BaseLayout
+  title="ILIKS - Your trusted software development partner."
+  description="Open-source Astro theme with advanced SEO, GEO & AEO optimization. Built for SaaS companies and B2B marketing websites. Lighthouse 100/100."
+  appendSiteName={false}
+>
+  <Fragment slot="head">
+    <!-- Add inside <head> -->
+    <JsonLd
+      type="WebSite"
+      data={{
+        name: 'ILIKS',
+        url: siteUrl,
+        description: 'The ultimate open-source Astro theme for B2B/SaaS marketing websites.',
+        searchUrl: `${siteUrl}/search`,
+      }}
+    />
+    <JsonLd
+      type="Organization"
+      data={{
+        name: 'ILIKS',
+        url: siteUrl,
+        description:
+          'Open-source Astro theme with advanced SEO optimization for B2B and SaaS websites.',
+      }}
+    />
+  </Fragment>
+
+  <HeroSection
+    titleStart={t('hero.titleStart')}
+    titleHighlight={t('hero.titleHighlight')}
+    description={t('hero.description')}
+    primaryCtaText={t('hero.primaryCta')}
+    primaryCtaHref="https://cal.com/saeidex/meeting"
+    primaryCtaAriaLabel={t('hero.primaryCta')}
+    secondaryCtaText={t('hero.secondaryCta')}
+    secondaryCtaHref={getLocalizedPath(lang, '/docs')}
+    secondaryCtaAriaLabel={t('hero.secondaryCta')}
+  >
+    <Header slot="header" />
+  </HeroSection>
+
+  <LogoCloud logos={[]} />
+
+  <BentoGrid
+    id="services"
+    title="Our Services"
+    subtitle="We provide premium services with a focus on quality."
+    items={services}
+  />
+
+  <PricingTable
+    client:load
+    title="A clear path from idea to delivery"
+    subtitle="Choose the starting point that fits your product today. Every engagement is scoped around your goals."
+    tiers={pricingTiers}
+  />
+
+  <FaqAccordion title="Have a question?" description="Browse through our FAQs" faqs={faqs} />
+
+  <FooterCta
+    title={t('footer.cta.title')}
+    ctaText={t('footer.cta.text')}
+    description={t('footer.cta.description')}
+    ctaHref={t('footer.cta.href')}
+    ctaAriaLabel={t('footer.cta.ariaLabel')}
+  />
+
+  <Footer slot="footer" />
+</BaseLayout>

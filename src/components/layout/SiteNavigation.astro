@@ -1,0 +1,188 @@
+---
+import {
+  BookOpenIcon,
+  DollarSignIcon,
+  FileTextIcon,
+  GalaxyIcon,
+  InfoIcon,
+  LibraryBigIcon,
+  MenuIcon,
+  MessagesSquareIcon,
+  XIcon,
+} from 'lucide-react';
+
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { getLocalizedPath } from '@/i18n/utils';
+import type { Lang } from '@/i18n/ui';
+import { ButtonLink } from '../ui/button-link';
+
+type NavigationLabels = {
+  product: string;
+  resources: string;
+  services: string;
+  servicesDesc: string;
+  pricing: string;
+  pricingDesc: string;
+  caseStudies: string;
+  caseStudiesDesc: string;
+  blog: string;
+  blogDesc: string;
+  docs: string;
+  docsDesc: string;
+  about: string;
+  contact: string;
+  menu: string;
+  close: string;
+  mobileEyebrow: string;
+};
+
+type Props = {
+  lang: Lang;
+  labels: NavigationLabels;
+};
+
+const { lang, labels } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const path = (href: string) => getLocalizedPath(lang, href);
+
+const links = [
+  { label: labels.services, href: path('/services'), icon: GalaxyIcon },
+  { label: labels.caseStudies, href: path('/case-studies'), icon: LibraryBigIcon },
+  { label: labels.blog, href: path('/blog'), icon: BookOpenIcon },
+  // { label: labels.docs, href: path('/docs'), icon: FileTextIcon },
+  { label: labels.pricing, href: path('/pricing'), icon: DollarSignIcon },
+  { label: labels.about, href: path('/about'), icon: InfoIcon },
+  { label: labels.contact, href: path('/contact'), icon: MessagesSquareIcon },
+];
+
+const isActive = (href: string) => {
+  const hrefPath = new URL(href, Astro.url).pathname;
+
+  return (
+    pathname === hrefPath ||
+    (hrefPath !== '/' && pathname.startsWith(`${hrefPath.replace(/\/$/, '')}/`))
+  );
+};
+
+const navLink = (active: boolean) =>
+  cn(
+    buttonVariants({ variant: 'ghost', size: 'sm' }),
+    'px-3 hover:bg-primary hover:text-primary-foreground transition-colors duration-200',
+    active && 'font-bold text-primary'
+  );
+
+const STEP = 100;
+---
+
+<div class="flex min-w-0 flex-1 items-center justify-center">
+  <!-- Desktop navigation -->
+  <nav class="hidden md:block" aria-label="Main navigation">
+    <ul class="flex items-center gap-1">
+      {links.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            aria-current={isActive(href) ? 'page' : undefined}
+            class={navLink(isActive(href))}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- Mobile menu trigger -->
+  <Button
+    type="button"
+    data-nav-toggle
+    aria-label={labels.menu}
+    aria-controls="mobile-nav"
+    aria-expanded="false"
+    size="icon"
+    variant="outline"
+    className="group ml-auto size-10 md:hidden"
+  >
+    <MenuIcon className="size-5 group-aria-expanded:hidden" />
+    <XIcon className="hidden size-5 group-aria-expanded:block" />
+  </Button>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-nav"
+    class="group/nav absolute hidden data-nav-open:block h-[calc(100dvh-4rem)] top-18 left-0 w-dvw bg-background border-b"
+  >
+    <nav
+      aria-label="Mobile navigation"
+      class="flex max-h-[calc(100dvh-5rem)] overflow-x-hidden h-full flex-col divide-y divide-foreground/15 overflow-y-auto px-6 py-5"
+    >
+      {links.map(({ label, href, icon: Icon }, idx) => (
+        <ButtonLink
+          href={href}
+          style={{ animationDelay: `${idx * STEP}ms` }}
+          aria-current={isActive(href) ? 'page' : undefined}
+          variant={href === '/contact' ? 'default' : 'ghost'}
+          size="lg"
+          className={cn(
+            'rounded-none h-auto w-full justify-start gap-6 py-6 text-2xl',
+            'group-data-nav-open/nav:animate-in group-data-nav-open/nav:fade-in group-data-nav-open/nav:slide-in-from-end-8',
+            'duration-300 fill-mode-backwards',
+            isActive(href) && 'bg-muted text-foreground',
+            href === '/contact' && 'justify-center gap-2 mt-9 rounded-(--radius)'
+          )}
+        >
+          {Icon && <Icon className="size-6 shrink-0" />}
+          {label}
+        </ButtonLink>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<script>
+  let controller: AbortController | undefined;
+
+  const setupNavigation = () => {
+    controller?.abort();
+    controller = new AbortController();
+    const { signal } = controller;
+
+    const nav = document.querySelector<HTMLElement>('#mobile-nav');
+    const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+    if (!nav || !toggle) return;
+
+    const isOpen = () => nav.hasAttribute('data-nav-open');
+    const setOpen = (open: boolean) => {
+      nav.toggleAttribute('data-nav-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('overflow-hidden', open);
+    };
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()), { signal });
+
+    nav.addEventListener(
+      'click',
+      (e) => {
+        if ((e.target as HTMLElement).closest('a')) setOpen(false);
+      },
+      { signal }
+    );
+
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && isOpen()) setOpen(false);
+      },
+      { signal }
+    );
+
+    window
+      .matchMedia('(min-width: 768px)')
+      .addEventListener('change', (e) => e.matches && setOpen(false), { signal });
+  };
+
+  setupNavigation();
+  document.addEventListener('astro:page-load', setupNavigation);
+</script>

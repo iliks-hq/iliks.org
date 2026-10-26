@@ -1,0 +1,66 @@
+---
+import { CalendarPlusIcon } from 'lucide-react';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { ButtonLink } from '../ui/button-link';
+import SiteNavigation from './SiteNavigation.astro';
+import LogoLink from '@/components/marketing/LogoLink.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header
+  data-navbar
+  class="fixed border-b border-transparent transition-[border-color] data-scrolled:border-border duration-500 top-0 z-50 w-full bg-background/60 text-foreground backdrop-blur-sm"
+>
+  <div class="mx-auto flex h-18 max-w-7xl items-center gap-5 px-4 md:px-6">
+    <LogoLink lang={lang} class="shrink-0" />
+
+    <SiteNavigation
+      lang={lang}
+      labels={{
+        product: t('nav.product'),
+        resources: t('nav.resources'),
+        services: t('nav.services'),
+        servicesDesc: t('nav.servicesDesc'),
+        pricing: t('nav.pricing'),
+        pricingDesc: t('nav.pricingDesc'),
+        caseStudies: t('nav.caseStudies'),
+        caseStudiesDesc: t('nav.caseStudiesDesc'),
+        blog: t('nav.blog'),
+        blogDesc: t('nav.blogDesc'),
+        docs: t('nav.docs'),
+        docsDesc: t('nav.docsDesc'),
+        about: t('nav.about'),
+        contact: t('nav.contact'),
+        menu: 'Open menu',
+        close: 'Close menu',
+        mobileEyebrow: 'Explore ILIKS',
+      }}
+    />
+
+    <div class="hidden md:flex items-center gap-4">
+      <ButtonLink
+        aria-label={t('nav.cta')}
+        href={t('nav.ctaHref')}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="shrink-0"
+        size="lg"
+      >
+        {t('nav.cta')}
+        <CalendarPlusIcon />
+      </ButtonLink>
+    </div>
+  </div>
+</header>
+
+<script>
+  const update = () => {
+    document.querySelector('[data-navbar]')?.toggleAttribute('data-scrolled', scrollY > 0);
+  };
+
+  addEventListener('scroll', update, { passive: true }); // once per full load
+  document.addEventListener('astro:page-load', update); // re-sync after ClientRouter navigations
+  update(); // set state on first load
+</script>

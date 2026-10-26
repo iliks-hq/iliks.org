@@ -1,0 +1,27 @@
+---
+import { CalendarPlusIcon } from 'lucide-react';
+import { ButtonLink } from '../ui/button-link';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ctaText: string;
+  ctaHref: string;
+  ctaAriaLabel: string;
+}
+
+const { title = 'Get in touch', description, ctaText, ctaHref, ctaAriaLabel } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl px-6 py-20 md:py-32" id="footer-cta">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="font-display text-primary text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
+    {description && <p class="mt-4 text-lg">{description}</p>}
+  </div>
+
+  <div class="mx-auto mt-8 w-fit">
+    <ButtonLink className="" aria-label={ctaAriaLabel} size={'lg'} href={ctaHref}>
+      <CalendarPlusIcon /> {ctaText}
+    </ButtonLink>
+  </div>
+</section>
